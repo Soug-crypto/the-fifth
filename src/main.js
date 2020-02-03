@@ -28,7 +28,6 @@ const apolloProvider = new VueApollo({
   defaultClient: apolloClient
 })
 
-
 Vue.use(BootstrapVue);
 Vue.use(VueTouch);
 Vue.use(Trend);
