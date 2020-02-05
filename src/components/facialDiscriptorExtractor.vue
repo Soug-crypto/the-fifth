@@ -1,17 +1,10 @@
-<template lang="html">
-  <section class="facial-discriptor-extractor">
-    <!-- <b-col 
-      sm="8"
-      xs="12"
-      class="m-auto"
-    >
-      <b-form-input
-        id="name"
-        size="sm"
-        placeholder="Enter User name"
-      />
-    </b-col> <br> -->
-
+<template
+  ref="formContainer"
+  lang="html"
+>
+  <section
+    class="facial-discriptor-extractor"
+  >
     <b-col
       sm="8"
       xs="12"
@@ -56,7 +49,8 @@
 
 <script lang="js">
 import * as faceapi from "../../public/face-api.min.js"
-const axios = require('axios');
+import axios from 'axios';
+
 
 export default {
   name: 'FacialDiscriptorExtractor',
@@ -74,8 +68,21 @@ export default {
   },
   methods: {
     extractDiscriptors: function() {
-      const that = this
       const imageUpload = document.getElementById('imageUpload')
+      const that = this
+
+      if ( imageUpload.files.length === 0 ) {
+        return alert('Please Add Pics')
+      }
+      
+      // console.log(imageUpload.files)
+      const loader = this.$loading.show({
+        // Optional parameters
+        container: this.$refs.formContainer,
+        canCancel: false,
+        // onCancel: this.onCancel,
+      });
+      
 
       Promise.all([
         faceapi.nets.faceRecognitionNet.loadFromUri('./models'),
@@ -94,6 +101,7 @@ export default {
               })
             )
             console.log('Done')
+            loader.hide()
           })
       }
 
