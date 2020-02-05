@@ -19,7 +19,7 @@ import ChartsPage from '@/pages/Charts/Charts';
 // Ui
 import IconsPage from '@/pages/Icons/Icons';
 // import NotificationsPage from '@/pages/Notifications/Notifications';
-import Webcam4 from '../components/webcam-4.vue'
+
 
 const routes = [
   {
@@ -66,11 +66,6 @@ const routes = [
         path: 'tables',
         name: 'TablesBasicPage',
         component: TablesBasicPage,
-      },
-      {
-        path: 'Webcam4',
-        name: 'Webcam4',
-        component: Webcam4,
       },
       // {
       //   path: 'components/maps',
