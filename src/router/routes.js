@@ -19,6 +19,7 @@ import ChartsPage from '@/pages/Charts/Charts';
 // Ui
 import IconsPage from '@/pages/Icons/Icons';
 // import NotificationsPage from '@/pages/Notifications/Notifications';
+import Webcam3 from '../components/webcam-3.vue'
 
 
 const routes = [
@@ -66,6 +67,11 @@ const routes = [
         path: 'tables',
         name: 'TablesBasicPage',
         component: TablesBasicPage,
+      },
+      {
+        path: 'Webcam3',
+        name: 'Webcam3',
+        component: Webcam3,
       },
       // {
       //   path: 'components/maps',
