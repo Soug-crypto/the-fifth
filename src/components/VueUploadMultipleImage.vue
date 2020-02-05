@@ -89,7 +89,7 @@ import { forEach, findIndex, orderBy, cloneDeep } from 'lodash'
 // import Popper from 'vue-popperjs'
 import 'vue-popperjs/dist/css/vue-popper.css'
 import VueImageLightboxCarousel from 'vue-image-lightbox-carousel'
-import UPLOAD_PHOTO from "../graphql/UploadPhoto";
+import { uploadPhotoMutation } from "../graphql/Mutations";
 export default {
 
   name: 'VueUploadMultipleImage',
@@ -183,7 +183,7 @@ export default {
     onUpload(){
       if(this.file){
         this.$apollo.mutate({
-        mutation: UPLOAD_PHOTO,
+        mutation: uploadPhotoMutation,
         variables: {
         photo: this.file
       }
@@ -276,15 +276,15 @@ export default {
       }
       forEach(files, (value) => {
         this.editImage(value)
-      })
+      });
       if (document.getElementById(this.idEdit)) {
         document.getElementById(this.idEdit).value = ''
       }
     },
     changeHighlight (currentIndex) {
-      this.currentIndexImage = currentIndex
-      let arr = this.images
-      this.images = []
+      this.currentIndexImage = currentIndex;
+      let arr = this.images;
+      this.images = [];
       arr.map((item, index) => {
         if (currentIndex === index) {
           item.highlight = 1
@@ -292,7 +292,7 @@ export default {
           item.highlight = 0
         }
         return item
-      })
+      });
       this.images = arr
     },
     markIsPrimary (currentIndex) {
