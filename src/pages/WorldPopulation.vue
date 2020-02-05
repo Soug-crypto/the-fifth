@@ -1,17 +1,19 @@
 <script>
 import * as d3 from 'd3'
-import DiagramSelect from '../components/charts/DiagramSelect'
-import ToolTip from '../components/charts/ToolTip'
-import CirclePack from '../components/charts/CirclePack'
-import TreeMap from '../components/charts/TreeMap'
-import Sunburst from '../components/charts/Sunburst'
+// import DiagramSelect from '../components/charts/DiagramSelect'
+import Widget from '@/components/Widget/Widget'
+import ToolTip from '@/components/charts/ToolTip'
+import CirclePack from '@/components/charts/CirclePack'
+import TreeMap from '@/components/charts/TreeMap'
+import Sunburst from '@/components/charts/Sunburst'
 export default {
   components: {
-    DiagramSelect,
+    // DiagramSelect,
     ToolTip,
     CirclePack,
     TreeMap,
-    Sunburst
+    Sunburst,
+    Widget
   },
   data() {
     return {
@@ -1498,31 +1500,49 @@ export default {
 <template>
   <div :class="$style.population">
     <ToolTip />
-    <h1>World Population</h1>
-    <DiagramSelect
-      v-model="selected"
-      v-bind="{ select }"
-    />
-    <CirclePack
-      v-if="selected === 'pack'"
-      v-bind="{ data: pack, width, height }"
-    />
-    <TreeMap
-      v-if="selected === 'treemap'"
-      v-bind="{ data: treemap, width, height }"
-    />
-    <Sunburst
-      v-if="selected === 'sunburst'"
-      v-bind="{ data: partition, radius }"
-    />
+    <!-- <h1>World Population</h1> -->
+    <b-row class="text-center w-100">
+      <b-col 
+        lg="12" 
+        xs="12"
+        class="w-100"
+      >
+        <Widget>
+          <CirclePack
+            v-bind="{ data: pack, width, height }"
+          />
+        </Widget>
+      </b-col>
+      <b-col
+        lg="12"
+        xs="12"
+      >
+        <Widget>
+          <TreeMap
+            v-bind="{ data: treemap, width, height }"
+          />
+        </Widget>
+      </b-col>
+      <b-col 
+        lg="12"
+        xs="12"
+      >
+        <Widget>
+          <Sunburst
+            class="w-100"
+            v-bind="{ data: partition, radius }"
+          />
+        </Widget>
+      </b-col>
+    </b-row>
   </div>
 </template>
 
 <style module>
-.population {
-  max-width: 950px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-}
+  .population {
+    max-width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
 </style>

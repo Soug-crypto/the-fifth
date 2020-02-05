@@ -3,9 +3,12 @@ import Login from '@/pages/Login/Login';
 import ErrorPage from '@/pages/Error/Error';
 // Core
 // import TypographyPage from '@/pages/Typography/Typography';
-import WorldPopulation from'../pages/WorldPopulation.vue'
+
 // Tables
 import TablesBasicPage from '@/pages/Tables/Basic';
+
+// Sec Charts
+import WorldPopulation from '../pages/WorldPopulation.vue';
 
 // Maps
 // import GoogleMapPage from '@/pages/Maps/Google';
@@ -21,12 +24,19 @@ import IconsPage from '@/pages/Icons/Icons';
 // import NotificationsPage from '@/pages/Notifications/Notifications';
 import Webcam3 from '../components/webcam-3.vue'
 
+import ResetPassword from '@/pages/ResetPassword'
+
 
 const routes = [
   {
     path: '/login',
     name: 'Login',
     component: Login,
+  },
+  {
+    path: '/reset',
+    name: 'ResetPassword',
+    component: ResetPassword,
   },
   {
     path: '/error',

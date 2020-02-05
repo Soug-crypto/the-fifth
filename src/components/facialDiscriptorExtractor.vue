@@ -1,20 +1,56 @@
 <template lang="html">
   <section class="facial-discriptor-extractor">
-    <input
-      id="imageUpload"
-      type="file"
-      multiple
+    <!-- <b-col 
+      sm="8"
+      xs="12"
+      class="m-auto"
     >
-    <input
-      id="name"
-      type="text"
+      <b-form-input
+        id="name"
+        size="sm"
+        placeholder="Enter User name"
+      />
+    </b-col> <br> -->
+
+    <b-col
+      sm="8"
+      xs="12"
+      class="m-auto"
     >
-    <button
-      type="button"
-      @click="extractDiscriptors"
-    >
-      Extract Discriptors
-    </button>
+      <b-form-file 
+        id="imageUpload"
+        class="mt-3"
+        multiple 
+      >
+        <template
+          slot="file-name"
+          slot-scope="{ names }"
+        >
+          <b-badge variant="dark">
+            {{ names[0] }}
+          </b-badge>
+          <b-badge
+            v-if="names.length > 1"
+            variant="dark"
+            class="ml-1"
+          >
+            + {{ names.length - 1 }} More files
+          </b-badge>
+        </template>
+      </b-form-file>
+    </b-col>
+    <br>
+    <b-col sm="8 m-auto text-center">
+      <b-button
+        class="mt-4 border-0"
+        type="button"
+        variant="primary"
+        style="background-color: #ffc247; color: black;"
+        @click="extractDiscriptors"
+      >
+        Extract Discriptor
+      </b-button>
+    </b-col>
   </section>
 </template>
 
@@ -37,7 +73,8 @@ export default {
 
   },
   methods: {
-    extractDiscriptors: () => {
+    extractDiscriptors: function() {
+      const that = this
       const imageUpload = document.getElementById('imageUpload')
 
       Promise.all([
@@ -48,31 +85,15 @@ export default {
       ]).then(start)
 
       async function start() {
-        var label = document.getElementById("name").value
         addFace(imageUpload.files)
           .then((faceDescriptors) => {
-            axios({
-                method: 'post',
-                url: 'http://localhost:3000/',
-                data: {
-                  faceDescriptors,
-                  label
-                },
-                headers: {
-                  'Content-Type': 'application/json'
-                }
+            that.$store.commit(
+              'addDescriptor', 
+              faceDescriptors.map(elm => {
+                return elm.descriptor;
               })
-              .then(function(response) {
-                console.log({
-                  response
-                });
-              })
-              .catch(function(error) {
-                console.log({
-                  error
-                });
-              });
-            //document.body.append('Loaded')
+            )
+            console.log('Done')
           })
       }
 
@@ -109,21 +130,29 @@ export default {
 
 <style scoped lang="scss">
 body {
-    margin: 0;
-    padding: 0;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 .facial-discriptor-extractor {
-    }
+  width: 100%;
+  padding: 2em;
+  // text-align: center;
+}
+
+#imageUpload {
+  text-align: center;
+  margin: auto;
+}
 </style>

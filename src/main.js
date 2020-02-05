@@ -38,14 +38,15 @@ Vue.config.productionTip = false;
 
 export const eventBus = new Vue()
 
-if (document.querySelector('#my-strictly-unique-vue-upload-multiple-image')) {
-    Vue.component('VueUploadMultipleImage', VueUploadMultipleImage);
-}
+// if (document.querySelector('#my-strictly-unique-vue-upload-multiple-image')) {
+// console.log(document.querySelector('#my-strictly-unique-vue-upload-multiple-image'))
+// }
+  
+Vue.component('VueUploadMultipleImage', VueUploadMultipleImage);
 
 new Vue({
   apolloProvider,
   router,
-  // el: '#my-strictly-unique-vue-upload-multiple-image',
   store,
   render: h => h(App),
 }).$mount('#app')
